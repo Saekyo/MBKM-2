@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Pegawai</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Data Pegawai</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nama Pegawai</th>
+            <th>Umur</th>
+            <th>Jabatan</th>
+            <th>Status</th>
+            <th>Gaji Pokok</th>
+            <th>Tunjangan Jabatan</th>
+            <th>BPJS</th>
+            <th>Tunjangan Keluarga</th>
+            <th>Total Gaji</th>
+          </tr>
+        </thead>
+        <tbody id="pegawai-data"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9"><strong>Total Seluruh Gaji</strong></td>
+            <td id="total-seluruh-gaji"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let pegawaiList = [
+      {
+        nama: "Dodi Prayodi",
+        umur: 25,
+        jabatan: "Manajer",
+        status: "Menikah",
+      },
+      {
+        nama: "Reski",
+        umur: 23,
+        jabatan: "Asisten Manajer",
+        status: "Belum Menikah",
+      },
+      { nama: "Maman", umur: 30, jabatan: "Staff", status: "Menikah" },
+    ];
+
+    let tbody = document.getElementById("pegawai-data");
+    let totalSeluruhGaji = 0;
+
+    pegawaiList.forEach((pegawai) => {
+      let gajiPokok;
+      switch (pegawai.jabatan) {
+        case "Manajer":
+          gajiPokok = 15000000;
+          break;
+        case "Asisten Manajer":
+          gajiPokok = 10000000;
+          break;
+        case "Staff":
+          gajiPokok = 5000000;
+          break;
+        default:
+          gajiPokok = 0;
+      }
+
+      let tunjanganJabatan = 0.15 * gajiPokok;
+      let bpjs = 0.1 * gajiPokok;
+      let tunjanganKeluarga =
+        pegawai.status === "Menikah" ? 0.2 * gajiPokok : 0;
+
+      let totalGaji = gajiPokok + tunjanganJabatan + tunjanganKeluarga + bpjs;
+      totalSeluruhGaji += totalGaji;
+
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
+              <td>${pegawaiList.indexOf(pegawai) + 1}</td>
+              <td>${pegawai.nama}</td>
+              <td>${pegawai.umur}</td>
+              <td>${pegawai.jabatan}</td>
+              <td>${pegawai.status}</td>
+              <td>Rp${gajiPokok.toLocaleString()}</td>
+              <td>Rp${tunjanganJabatan.toLocaleString()}</td>
+              <td>Rp${bpjs.toLocaleString()}</td>
+              <td>Rp${tunjanganKeluarga.toLocaleString()}</td>
+              <td>Rp${totalGaji.toLocaleString()}</td>
+          `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById(
+      "total-seluruh-gaji"
+    ).innerText = `Rp${totalSeluruhGaji.toLocaleString()}`;
+  </script>
+</html>
