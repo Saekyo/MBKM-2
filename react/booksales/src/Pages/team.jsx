@@ -1,5 +1,5 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../Components/Footer";
+import Header from "../Components/Header";
 
 function Team() {
   return (
@@ -25,7 +25,7 @@ function Team() {
                 <div className="card-body">
                   <h5 className="card-title">Saekyo </h5>
                   <p className="card-text">Role: Developer</p>
-                  <a href="#" className="btn btn-outline-primary btn-sm">
+                  <a href="http://linkedin.com/in/reski-junaidi-shalat" className="btn btn-outline-primary btn-sm">
                     View Profile
                   </a>
                 </div>
